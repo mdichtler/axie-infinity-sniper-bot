@@ -1,16 +1,13 @@
-from datetime import datetime
 
 
 from selenium import webdriver
-from selenium.webdriver.common.keys import Keys
 
 
 from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
+
 
 class Scraper:
-    def __init__(self, url="", bin_path=""):
+    def __init__(self, bin_path=""):
         option = webdriver.ChromeOptions()
         option.binary_location = bin_path
         self.browser = webdriver.Chrome(
@@ -32,6 +29,10 @@ class Scraper:
         print(len(links))
         top100players = []
         for index, element in enumerate(elements):
-            top100players.append({"player": element.text, "url": links[index].get_attribute('href')})
+            top100players.append({"player": element.text,
+                                  "url": links[index].get_attribute('href'),
+                                  "rank": index+1,
+                                  "mmr": element.text[-9:][:4]
+                                  })
             # print(index, element.text)
         return top100players

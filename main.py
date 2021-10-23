@@ -3,7 +3,7 @@ import argparse
 
 # import functionality from within the project
 from scraper import Scraper
-
+from database import Database
 
 # user can specify chrome binary using --path parameter if not in default location
 parser = argparse.ArgumentParser(description="Parser")
@@ -14,5 +14,22 @@ args = parser.parse_args()
 # parse parameters from run command
 bin_path = args.path
 
+# initiate db
+db = Database()
+
+
 # initiate scraper
-scraper = Scraper(url="https://exchange.pancakeswap.finance/#/swap", bin_path=bin_path)
+scraper = Scraper(bin_path=bin_path)
+# print(scraper.get_leaderboard_urls())
+
+
+
+# get leaderboard including urls to their axie.zone profiles that have info on their axies
+leaderboard_data = scraper.get_leaderboard_urls()
+# now lets scrape this for axies
+
+
+# ONLY PUSH FINAL DATA
+# db.push_leaderboard_to_db(data=leaderboard_data)
+
+
