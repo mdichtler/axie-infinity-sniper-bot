@@ -27,9 +27,16 @@ scraper = Scraper(bin_path=bin_path)
 # get leaderboard including urls to their axie.zone profiles that have info on their axies
 leaderboard_data = scraper.get_leaderboard_urls()
 # now lets scrape this for axies
+# TODO: uncomment leaderboard data
+
+for player in leaderboard_data:
+    player["axies"] = scraper.get_axies_from_profile(url=player["url"])
+    print(player)
+
+
 
 
 # ONLY PUSH FINAL DATA
-# db.push_leaderboard_to_db(data=leaderboard_data)
+db.push_leaderboard_to_db(data=leaderboard_data)
 
 
