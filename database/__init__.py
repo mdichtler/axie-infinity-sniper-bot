@@ -25,3 +25,14 @@ class Database():
             u'data': data
         })
 
+    def push_on_sale_axies(self, axie):
+        on_sale_ref = self.db.collection('on_sale')
+        on_sale_ref.add({
+            u'time': datetime.datetime.now(),
+            u'axie': axie,
+            u'currentPriceUSD': float(axie["auction"]["currentPriceUSD"]),
+            u'class': axie["class"],
+            u'id': axie["id"],
+            u'image': axie["image"],
+            u'player_rank': axie["player_rank"]
+        })
