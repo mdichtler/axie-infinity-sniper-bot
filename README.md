@@ -1,4 +1,4 @@
-# Axie Infinity Sniper Bot
+# Axie Infinity Sniper Bot #axieinfinity
 [![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/R5R56SOT1)
 
 
