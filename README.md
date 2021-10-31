@@ -7,6 +7,12 @@ This project helps you collect data from axie.zone about the top 100 players, an
 
 ## Installation
 
+### Video Tutorial
+
+[![IMAGE ALT TEXT HERE](https://i.imgur.com/baDtWpr.png)](https://youtu.be/LijzwzcuIKo)
+
+
+### Instructions
 
 1. Create a Firebase account & Project
 
