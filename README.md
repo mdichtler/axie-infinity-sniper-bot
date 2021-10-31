@@ -38,13 +38,15 @@ service cloud.firestore {
 
 6. Rename the file to serviceAccountKey.json and import it into the project directory ./database/serviceAccountKey.json (this file is included in .gitignore)
 
-7. Use the package manager [pip](https://pip.pypa.io/en/stable/) to install dependencies from requirements.txt file.
+7. Create virtual environment
+
+8. Use the package manager [pip](https://pip.pypa.io/en/stable/) to install dependencies from requirements.txt file.
 
 ```bash
 pip3 install -r requirements.txt
 ```
 
-8. Run main.py, after script finishes, your data will be loaded into two collections, leaderboards (top 100 players at the runtime, multiple documents) and on_sale (all axies matching one of the most used axies by top 100 players, including their price, which top 100 player it matches, ID, class & parts, see example json below).
+9. Run main.py, after script finishes, your data will be loaded into two collections, leaderboards (top 100 players at the runtime, multiple documents) and on_sale (all axies matching one of the most used axies by top 100 players, including their price, which top 100 player it matches, ID, class & parts, see example json below).
 
 ####  Example JSON:
 
