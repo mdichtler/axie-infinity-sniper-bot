@@ -19,11 +19,8 @@ bin_path = args.path
 # initiate db
 db = Database()
 
-
 # initiate scraper
 scraper = Scraper(bin_path=bin_path)
-
-
 
 # get leaderboard including urls to their axie.zone profiles that have info on their axies
 leaderboard_data = scraper.get_leaderboard_urls()
@@ -46,10 +43,3 @@ for player in leaderboard_data:
         except Exception as e:
             print(e)
             pass
-
-
-
-
-
-
-

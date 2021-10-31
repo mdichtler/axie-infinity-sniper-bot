@@ -11,8 +11,6 @@ cred = credentials.Certificate('./database/serviceAccountKey.json')
 firebase_admin.initialize_app(cred)
 
 
-
-
 class Database():
     def __init__(self):
         self.db = firestore.client()

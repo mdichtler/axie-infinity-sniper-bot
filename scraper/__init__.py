@@ -1,8 +1,6 @@
-
 import requests
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
-
 
 from selenium.webdriver.common.by import By
 
@@ -11,7 +9,7 @@ class Scraper:
     def __init__(self, bin_path=""):
         option = webdriver.ChromeOptions()
         option.binary_location = bin_path
-        ua='cat'
+        ua = 'cat'
         option.add_argument('--user-agent=%s' % ua)
         option.add_argument("--disable-blink-features=AutomationControlled")
         # TODO: ENSURE CHROMEDRIVER IS IN PROJECT DIRECTORY
@@ -19,7 +17,6 @@ class Scraper:
             executable_path="./chromedriver.exe", options=option
         )
         # self.get_leaderboard_urls()
-
 
     def get_leaderboard_urls(self):
         self.browser.get('https://axie.zone/leaderboard')
@@ -36,11 +33,10 @@ class Scraper:
         for index, element in enumerate(elements):
             top100players.append({"player": element.text,
                                   "url": links[index].get_attribute('href'),
-                                  "rank": index+1,
+                                  "rank": index + 1,
                                   "mmr": element.text[-9:][:4]
                                   })
         return top100players
-
 
     # TODO: remove url after deploy to not produce fake positives
     def get_axies_from_profile(self, url):
@@ -55,9 +51,6 @@ class Scraper:
                 loading = False
                 print('Loaded.')
 
-
-
-        last_used_team = self.browser.find_element(by=By.ID, value='last_used_team_container')
         most_used_team = self.browser.find_element(by=By.ID, value='most_used_team_container')
 
         most_used_team_wrappers = most_used_team.find_elements(by=By.CLASS_NAME, value='search_result_wrapper')
@@ -85,8 +78,6 @@ class Scraper:
             axies.append(axie)
         return axies
 
-
-
     def find_axie_by_parts(self, axie_query):
         parts = []
         valid_parts = ["ears", "back", "mouth", "eyes", "horn", "tail"]
@@ -99,46 +90,39 @@ class Scraper:
         print(parts)
         return self.__query_axie_API(parts=parts, axie_class=[axie_query["class"]])
 
-
-
-
-
-
-
-
-
-
     def __query_axie_API(self, parts=[], axie_class=None):
         body = {
-                "operationName": "GetAxieBriefList",
-                "variables": {
-                    "from": 0,
-                    "size": 24,
-                    "sort": "PriceAsc",
-                    "auctionType": "Sale",
-                    "owner": None,
-                    "criteria": {
-                        "region": None,
-                        "parts": parts, #this will contain parts provided by the main function
-                        "bodyShapes": None,
-                        "classes": axie_class,
-                        "stages": None,
-                        "numMystic": None,
-                        "pureness": None,
-                        "title": None,
-                        "breedable": None,
-                        "breedCount": None,
-                        "hp": [],
-                        "skill": [],
-                        "speed": [],
-                        "morale": []
-                    }
-                },
-                "query": "query GetAxieBriefList($auctionType: AuctionType, $criteria: AxieSearchCriteria, $from: Int, $sort: SortBy, $size: Int, $owner: String) {\n  axies(auctionType: $auctionType, criteria: $criteria, from: $from, sort: $sort, size: $size, owner: $owner) {\n    total\n    results {\n      ...AxieBrief\n      __typename\n    }\n    __typename\n  }\n}\n\nfragment AxieBrief on Axie {\n  id\n  name\n  stage\n  class\n  breedCount\n  image\n  title\n  battleInfo {\n    banned\n    __typename\n  }\n  auction {\n    currentPrice\n    currentPriceUSD\n    __typename\n  }\n  parts {\n    id\n    name\n    class\n    type\n    specialGenes\n    __typename\n  }\n  __typename\n}\n"
-            }
+            "operationName": "GetAxieBriefList",
+            "variables": {
+                "from": 0,
+                "size": 24,
+                "sort": "PriceAsc",
+                "auctionType": "Sale",
+                "owner": None,
+                "criteria": {
+                    "region": None,
+                    "parts": parts,  # this will contain parts provided by the main function
+                    "bodyShapes": None,
+                    "classes": axie_class,
+                    "stages": None,
+                    "numMystic": None,
+                    "pureness": None,
+                    "title": None,
+                    "breedable": None,
+                    "breedCount": None,
+                    "hp": [],
+                    "skill": [],
+                    "speed": [],
+                    "morale": []
+                }
+            },
+            "query": "query GetAxieBriefList($auctionType: AuctionType, $criteria: AxieSearchCriteria, $from: Int, $sort: SortBy, $size: Int, $owner: String) {\n  axies(auctionType: $auctionType, criteria: $criteria, from: $from, sort: $sort, size: $size, owner: $owner) {\n    total\n    results {\n      ...AxieBrief\n      __typename\n    }\n    __typename\n  }\n}\n\nfragment AxieBrief on Axie {\n  id\n  name\n  stage\n  class\n  breedCount\n  image\n  title\n  battleInfo {\n    banned\n    __typename\n  }\n  auction {\n    currentPrice\n    currentPriceUSD\n    __typename\n  }\n  parts {\n    id\n    name\n    class\n    type\n    specialGenes\n    __typename\n  }\n  __typename\n}\n"
+        }
         r = None
         try:
-            r = requests.post(url='https://graphql-gateway.axieinfinity.com/graphql', headers={"authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhY2NvdW50SWQiOjc2NzI1NzUsImFjdGl2YXRlZCI6dHJ1ZSwicm9uaW5BZGRyZXNzIjoiMHgzM2I5NzhkNTc2Y2I3OTM1Y2ZjNTVmZjY4NjIzZjI2N2I2ZDJiMWFiIiwiZXRoQWRkcmVzcyI6bnVsbCwiaWF0IjoxNjM1MDA2NTI2LCJleHAiOjE2MzU2MTEzMjYsImlzcyI6IkF4aWVJbmZpbml0eSJ9.OpgBnGUGVWi29ytmqpPD-W4H1VhHZkRPAXq62sJlP6o"}, json=body)
+            r = requests.post(url='https://graphql-gateway.axieinfinity.com/graphql', headers={
+                "authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhY2NvdW50SWQiOjc2NzI1NzUsImFjdGl2YXRlZCI6dHJ1ZSwicm9uaW5BZGRyZXNzIjoiMHgzM2I5NzhkNTc2Y2I3OTM1Y2ZjNTVmZjY4NjIzZjI2N2I2ZDJiMWFiIiwiZXRoQWRkcmVzcyI6bnVsbCwiaWF0IjoxNjM1MDA2NTI2LCJleHAiOjE2MzU2MTEzMjYsImlzcyI6IkF4aWVJbmZpbml0eSJ9.OpgBnGUGVWi29ytmqpPD-W4H1VhHZkRPAXq62sJlP6o"},
+                              json=body)
             print(r.json())
         except Exception as e:
             pass
@@ -148,7 +132,6 @@ class Scraper:
             return r.json()["data"]["axies"]
         except Exception as e:
             return {"error": e}
-
 
     def __axie_parts_to_json(self, part):
         key = None
