@@ -7,16 +7,14 @@ This project helps you collect data from axie.zone about the top 100 players, an
 
 ## Installation
 
-Use the package manager [pip](https://pip.pypa.io/en/stable/) to install dependencies from requirements.txt file.
 
-```bash
-pip3 install -r requirements.txt
-```
 1. Create a Firebase account & Project
 
 2. Enable Firestore
 
-3. Update security rules to enable any authenticated user to read data (this setup is assuming usage with the provided Web GUI, if used within your own project tailor your security rules to the given project).
+3. (optional) Enable Authentication using Google.
+
+4. (optional) Update security rules to enable any authenticated user to read data (this setup is assuming usage with the provided Web GUI, if used within your own project tailor your security rules to the given project).
 
 Example:
 ```python
@@ -30,11 +28,17 @@ service cloud.firestore {
 }
 ```
 
-4. Within Firebase, navigate to Project Settings > Service Accounts, select Python and click on "Generate new private key"
+5. Within Firebase, navigate to Project Settings > Service Accounts, select Python and click on "Generate new private key"
 
-5. Rename the file to serviceAccountKey.json and import it into the project directory ./database/serviceAccountKey.json (this file is included in .gitignore)
+6. Rename the file to serviceAccountKey.json and import it into the project directory ./database/serviceAccountKey.json (this file is included in .gitignore)
 
-6. Run main.py, after script finishes, your data will be loaded into two collections, leaderboards (top 100 players at the runtime, multiple documents) and on_sale (all axies matching one of the most used axies by top 100 players, including their price, which top 100 player it matches, ID, class & parts, see example json below).
+7. Use the package manager [pip](https://pip.pypa.io/en/stable/) to install dependencies from requirements.txt file.
+
+```bash
+pip3 install -r requirements.txt
+```
+
+8. Run main.py, after script finishes, your data will be loaded into two collections, leaderboards (top 100 players at the runtime, multiple documents) and on_sale (all axies matching one of the most used axies by top 100 players, including their price, which top 100 player it matches, ID, class & parts, see example json below).
 
 ####  Example JSON:
 
