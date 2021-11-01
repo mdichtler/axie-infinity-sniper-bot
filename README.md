@@ -48,6 +48,8 @@ pip3 install -r requirements.txt
 
 9. Run main.py, after script finishes, your data will be loaded into two collections, leaderboards (top 100 players at the runtime, multiple documents) and on_sale (all axies matching one of the most used axies by top 100 players, including their price, which top 100 player it matches, ID, class & parts, see example json below).
 
+10. Setup GUI from [this repo](https://github.com/mdichtler/axie-infinity-sniper-gui)
+
 ####  Example JSON:
 
 ```
